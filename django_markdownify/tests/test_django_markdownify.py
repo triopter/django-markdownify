@@ -28,7 +28,7 @@ class DjangoMarkdownifyTestCase(SimpleTestCase):
         """
 
         # Delete settings
-        del settings.MARKDOWNIFY
+        del settings.DJANGO_MARKDOWNIFY
 
         output = django_markdownify(self.input_text_default)
         expected_output = """
@@ -71,10 +71,10 @@ class DjangoMarkdownifyTestCase(SimpleTestCase):
         """
 
         # Delete settings
-        del settings.MARKDOWNIFY
+        del settings.DJANGO_MARKDOWNIFY
 
         # Set some settings
-        settings.MARKDOWNIFY = {
+        settings.DJANGO_MARKDOWNIFY = {
             "default": {
                 "WHITELIST_TAGS": ['p', 'a', ],
                 "WHITELIST_ATTRS": ['href', 'style', ],
@@ -122,10 +122,10 @@ class DjangoMarkdownifyTestCase(SimpleTestCase):
         """
 
         # Delete settings
-        del settings.MARKDOWNIFY
+        del settings.DJANGO_MARKDOWNIFY
 
         # Set default settings, and tags
-        settings.MARKDOWNIFY = {
+        settings.DJANGO_MARKDOWNIFY = {
             "default": {
                 "WHITELIST_TAGS": ['p', 'pre', ],  # Some defaults
                 "MARKDOWN_EXTENSIONS": ['markdown.extensions.fenced_code', ]  # Enable an included extension
@@ -142,7 +142,7 @@ class DjangoMarkdownifyTestCase(SimpleTestCase):
         self.assertHTMLEqual(output, expected_output)
 
         # Disable extensions
-        del settings.MARKDOWNIFY["default"]["MARKDOWN_EXTENSIONS"]
+        del settings.DJANGO_MARKDOWNIFY["default"]["MARKDOWN_EXTENSIONS"]
 
         output = django_markdownify(self.input_text_extensions)
         expected_output = """
@@ -162,10 +162,10 @@ class DjangoMarkdownifyTestCase(SimpleTestCase):
         """
 
         # Delete settings
-        del settings.MARKDOWNIFY
+        del settings.DJANGO_MARKDOWNIFY
 
         # Set default settings, and tags
-        settings.MARKDOWNIFY = {
+        settings.DJANGO_MARKDOWNIFY = {
             "default": {
                 "WHITELIST_TAGS": ['p', 'pre', 'code'],
                 "WHITELIST_ATTRS": ['class', ],
@@ -186,7 +186,7 @@ class DjangoMarkdownifyTestCase(SimpleTestCase):
         self.assertHTMLEqual(output, expected_output)
 
         # Revert setting
-        del settings.MARKDOWNIFY["default"]["MARKDOWN_EXTENSION_CONFIGS"]
+        del settings.DJANGO_MARKDOWNIFY["default"]["MARKDOWN_EXTENSION_CONFIGS"]
         output = django_markdownify(self.input_text_extensions)
         expected_output = """
             <p>Fenced code:</p>
@@ -201,10 +201,10 @@ class DjangoMarkdownifyTestCase(SimpleTestCase):
         """
 
         # Delete settings
-        del settings.MARKDOWNIFY
+        del settings.DJANGO_MARKDOWNIFY
 
         # With bleach (and default settings)
-        settings.MARKDOWNIFY = {
+        settings.DJANGO_MARKDOWNIFY = {
             "default": {
                 "BLEACH": True
             }
@@ -220,7 +220,7 @@ class DjangoMarkdownifyTestCase(SimpleTestCase):
         self.assertHTMLEqual(output, expected_output)
 
         # Without bleach
-        settings.MARKDOWNIFY["default"]["BLEACH"] = False
+        settings.DJANGO_MARKDOWNIFY["default"]["BLEACH"] = False
         output = django_markdownify(self.input_text_bleach)
 
         expected_output = """
@@ -238,10 +238,10 @@ class DjangoMarkdownifyTestCase(SimpleTestCase):
         """
 
         # Delete settings
-        del settings.MARKDOWNIFY
+        del settings.DJANGO_MARKDOWNIFY
 
         # With stripping enabled (default)
-        settings.MARKDOWNIFY = {
+        settings.DJANGO_MARKDOWNIFY = {
             "default": {
                 "BLEACH": True,
                 "WHITELIST_TAGS": ["h1", "p", ],
@@ -257,7 +257,7 @@ class DjangoMarkdownifyTestCase(SimpleTestCase):
         self.assertHTMLEqual(output, expected_output)
 
         # Without stripping
-        settings.MARKDOWNIFY["default"]["STRIP"] = False
+        settings.DJANGO_MARKDOWNIFY["default"]["STRIP"] = False
 
         output = django_markdownify(self.input_text_strip)
         expected_output = """
@@ -273,10 +273,10 @@ class DjangoMarkdownifyTestCase(SimpleTestCase):
         """
 
         # Delete settings
-        del settings.MARKDOWNIFY
+        del settings.DJANGO_MARKDOWNIFY
 
         # Set some settings
-        settings.MARKDOWNIFY = {
+        settings.DJANGO_MARKDOWNIFY = {
             "default": {
                 "WHITELIST_TAGS": ['h1', 'p', 'a', ],
                 "WHITELIST_ATTRS": ['href', ],
@@ -302,10 +302,10 @@ class DjangoMarkdownifyTestCase(SimpleTestCase):
         """
 
         # Delete settings
-        del settings.MARKDOWNIFY
+        del settings.DJANGO_MARKDOWNIFY
 
         # Set some settings, turn off linkify completely
-        settings.MARKDOWNIFY = {
+        settings.DJANGO_MARKDOWNIFY = {
             "default": {
                 "WHITELIST_TAGS": ['h1', 'p', 'a', ],
                 "WHITELIST_ATTRS": ['href', ],
@@ -334,10 +334,10 @@ class DjangoMarkdownifyTestCase(SimpleTestCase):
         """
 
         # Delete settings
-        del settings.MARKDOWNIFY
+        del settings.DJANGO_MARKDOWNIFY
 
         # Set some settings
-        settings.MARKDOWNIFY = {
+        settings.DJANGO_MARKDOWNIFY = {
             "default": {
                 "WHITELIST_TAGS": ['h1', 'p', 'a', ],
                 "WHITELIST_ATTRS": ['href', ],
@@ -367,10 +367,10 @@ class DjangoMarkdownifyTestCase(SimpleTestCase):
         """
 
         # Delete settings
-        del settings.MARKDOWNIFY
+        del settings.DJANGO_MARKDOWNIFY
 
         # Set alternative settings
-        settings.MARKDOWNIFY = {
+        settings.DJANGO_MARKDOWNIFY = {
             "default": {
                 "WHITELIST_TAGS": ['h1', 'p', ]
             },
@@ -404,10 +404,10 @@ class DjangoMarkdownifyTestCase(SimpleTestCase):
         """
 
         # Delete settings
-        del settings.MARKDOWNIFY
+        del settings.DJANGO_MARKDOWNIFY
 
         # Set some settings
-        settings.MARKDOWNIFY = {
+        settings.DJANGO_MARKDOWNIFY = {
             "default": {
                 "WHITELIST_TAGS": ['h1', ],
             }

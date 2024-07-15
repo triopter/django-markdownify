@@ -16,7 +16,7 @@ register = template.Library()
 def django_markdownify(text, custom_settings="default"):
 
     try:
-        django_markdownify_settings = settings.MARKDOWNIFY[custom_settings]
+        django_markdownify_settings = settings.DJANGO_MARKDOWNIFY[custom_settings]
     except (AttributeError, KeyError):
         django_markdownify_settings = {}
 
