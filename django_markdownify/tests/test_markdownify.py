@@ -2,12 +2,12 @@ from django.test import SimpleTestCase, override_settings
 from django.conf import settings
 from django.template import Context, Template, TemplateSyntaxError
 
-from markdownify.templatetags.markdownify import markdownify
+from django_markdownify.templatetags.django_markdownify import django_markdownify
 
 import os
 
 
-class MarkdownifyTestCase(SimpleTestCase):
+class DjangoMarkdownifyTestCase(SimpleTestCase):
     maxDiff = None
 
     @override_settings()
@@ -30,7 +30,7 @@ class MarkdownifyTestCase(SimpleTestCase):
         # Delete settings
         del settings.MARKDOWNIFY
 
-        output = markdownify(self.input_text_default)
+        output = django_markdownify(self.input_text_default)
         expected_output = """
         <a href="http://somelink.com" title="somelink">This</a> is <strong>not</strong> a real link. 
         It <em>is</em> however an <acronym title="acronym">accr</acronym>.
@@ -86,7 +86,7 @@ class MarkdownifyTestCase(SimpleTestCase):
             }
         }
 
-        output = markdownify(self.input_text_default)
+        output = django_markdownify(self.input_text_default)
         expected_output = """
         <p><a href="http://somelink.com">This</a> is not a real link. It is however an accr.
         Here, have piece of code. And two lists.</p>
@@ -132,7 +132,7 @@ class MarkdownifyTestCase(SimpleTestCase):
             }
         }
 
-        output = markdownify(self.input_text_extensions)
+        output = django_markdownify(self.input_text_extensions)
 
         expected_output = """
             <p>Fenced code:</p>
@@ -144,7 +144,7 @@ class MarkdownifyTestCase(SimpleTestCase):
         # Disable extensions
         del settings.MARKDOWNIFY["default"]["MARKDOWN_EXTENSIONS"]
 
-        output = markdownify(self.input_text_extensions)
+        output = django_markdownify(self.input_text_extensions)
         expected_output = """
                     <p>Fenced code:
                     ~~~~~~~~~~~~~~~~~~~~{.python}
@@ -178,7 +178,7 @@ class MarkdownifyTestCase(SimpleTestCase):
             }
         }
 
-        output = markdownify(self.input_text_extensions)
+        output = django_markdownify(self.input_text_extensions)
         expected_output = """
             <p>Fenced code:</p>
             <pre><code class="test-python">def test(y): print(y)</code></pre>
@@ -187,7 +187,7 @@ class MarkdownifyTestCase(SimpleTestCase):
 
         # Revert setting
         del settings.MARKDOWNIFY["default"]["MARKDOWN_EXTENSION_CONFIGS"]
-        output = markdownify(self.input_text_extensions)
+        output = django_markdownify(self.input_text_extensions)
         expected_output = """
             <p>Fenced code:</p>
             <pre><code class="language-python">def test(y): print(y)</code></pre>
@@ -210,7 +210,7 @@ class MarkdownifyTestCase(SimpleTestCase):
             }
         }
 
-        output = markdownify(self.input_text_bleach)
+        output = django_markdownify(self.input_text_bleach)
         expected_output = """
             Bleach
             Bleach is an allowed-list-based HTML sanitizing library that escapes or strips markup and attributes.
@@ -221,7 +221,7 @@ class MarkdownifyTestCase(SimpleTestCase):
 
         # Without bleach
         settings.MARKDOWNIFY["default"]["BLEACH"] = False
-        output = markdownify(self.input_text_bleach)
+        output = django_markdownify(self.input_text_bleach)
 
         expected_output = """
             <h1>Bleach</h1>
@@ -249,7 +249,7 @@ class MarkdownifyTestCase(SimpleTestCase):
             }
         }
 
-        output = markdownify(self.input_text_strip)
+        output = django_markdownify(self.input_text_strip)
         expected_output = """
         <h1>Strip</h1>
         <p>This is a short paragraph with some tags that can be stripped.</p>
@@ -259,7 +259,7 @@ class MarkdownifyTestCase(SimpleTestCase):
         # Without stripping
         settings.MARKDOWNIFY["default"]["STRIP"] = False
 
-        output = markdownify(self.input_text_strip)
+        output = django_markdownify(self.input_text_strip)
         expected_output = """
         <h1>Strip</h1>
         <p>This is a short paragraph with some &lt;em&gt;tags&lt;/em&gt; that can be stripped.</p>
@@ -283,7 +283,7 @@ class MarkdownifyTestCase(SimpleTestCase):
             }
         }
 
-        output = markdownify(self.input_text_linkify)
+        output = django_markdownify(self.input_text_linkify)
         expected_output = """
             <h1>Linkify</h1>
             <p>
@@ -315,7 +315,7 @@ class MarkdownifyTestCase(SimpleTestCase):
             }
         }
 
-        output = markdownify(self.input_text_linkify)
+        output = django_markdownify(self.input_text_linkify)
 
         expected_output = """
             <h1>Linkify</h1>
@@ -347,7 +347,7 @@ class MarkdownifyTestCase(SimpleTestCase):
                 }
             }
         }
-        output = markdownify(self.input_text_linkify)
+        output = django_markdownify(self.input_text_linkify)
 
         expected_output = """
             <h1>Linkify</h1>
@@ -379,8 +379,8 @@ class MarkdownifyTestCase(SimpleTestCase):
             }
         }
 
-        output_default = markdownify(self.input_text_alternative)
-        output_alternative = markdownify(self.input_text_alternative, custom_settings="alternative")
+        output_default = django_markdownify(self.input_text_alternative)
+        output_alternative = django_markdownify(self.input_text_alternative, custom_settings="alternative")
 
         self.assertNotEqual(output_default, output_alternative)
 
@@ -398,9 +398,9 @@ class MarkdownifyTestCase(SimpleTestCase):
         self.assertHTMLEqual(expected_alternative, output_alternative)
 
     @override_settings()
-    def test_markdownify_nodelist(self):
+    def test_django_markdownify_nodelist(self):
         """
-        Test markdownify with a nodelist, e.g. {% markdownify %}{{ text }}{% endmarkdownify %}
+        Test django_markdownify with a nodelist, e.g. {% django_markdownify %}{{ text }}{% enddjango_markdownify %}
         """
 
         # Delete settings
@@ -415,10 +415,10 @@ class MarkdownifyTestCase(SimpleTestCase):
 
         text = "# Some header \n## Some subheader\nLorem ipsum"
         out = Template(
-            "{% load markdownify %}"
-            "{% markdownify %}"
+            "{% load django_markdownify %}"
+            "{% django_markdownify %}"
             "{{ text }}"
-            "{% endmarkdownify %}"
+            "{% enddjango_markdownify %}"
         ).render(Context({"text": text}))
 
         expected_output = """
