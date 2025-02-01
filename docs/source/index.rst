@@ -1,4 +1,4 @@
-.. Markdownify documentation master file, created by
+.. DjangoMarkdownify documentation master file, created by
    sphinx-quickstart on Fri Jan 19 12:58:03 2018.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
@@ -22,8 +22,8 @@ Markdown is converted to HTML and sanitized.**
 
 Example::
 
-  {% load markdownify %}
-  {{'Some *test* [link](#)'|markdownify }}
+  {% load django_markdownify %}
+  {{'Some *test* [link](#)'|django_markdownify }}
 
 Is transformed to::
 
@@ -52,9 +52,9 @@ For example::
 And in your templates::
 
    <!-- page1.html -->
-   {{ mytext|markdownify }} <!-- Uses your default settings -->
+   {{ mytext|django_markdownify }} <!-- Uses your default settings -->
 
    <!-- page2.html -->
-   {{ mytext|markdownify:"alternative" }} <!-- Uses your alternative settings -->
+   {{ mytext|django_markdownify:"alternative" }} <!-- Uses your alternative settings -->
 
 The code can be found on `Github <https://github.com/erwinmatijsen/django-markdownify>`_.

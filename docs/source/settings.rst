@@ -26,10 +26,10 @@ Define a dictionary ``MARKDOWNIFY`` in your ``settings.py`` with one or more key
 The keys can be used in the markdownify template filter to choose which settings to use. If you define a ``default`` key, you don't have to specify it in the filter.::
 
     # page1.html
-    {{ markdowntext|markdownify }} <!-- uses the default key -->
+    {{ markdowntext|django_markdownify }} <!-- uses the default key -->
 
     # page2.html
-    {{ markdowntext|markdownify:"other" }} <!-- uses the 'other' settings -->
+    {{ markdowntext|django_markdownify:"other" }} <!-- uses the 'other' settings -->
 
 
 If you don't defina a ``MARKDOWNIFY`` dict at all, all settings will fall back to defaults as described below.
@@ -192,7 +192,7 @@ Choose if you want to `strip or escape <http://pythonhosted.org/bleach/clean.htm
 
 Disable sanitation (bleach)
 ---------------------------
-If you just want to markdownify your text, not sanitize it, add ``BLEACH: False``. Defaults to ``True``.::
+If you just want to django_markdownify your text, not sanitize it, add ``BLEACH: False``. Defaults to ``True``.::
 
     MARKDOWNIFY = {
         "default": {

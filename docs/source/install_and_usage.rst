@@ -19,11 +19,11 @@ Install Django Markdownify with pip:
 
 Or add ``django-markdownify`` to your requirements.txt and run ``pip install -r requirements.txt``
 
-Finally add ``markdownify`` to your installed apps in ``settings.py``::
+Finally add ``django_markdownify`` to your installed apps in ``settings.py``::
 
   INSTALLED_APPS = [
       ...
-      'markdownify.apps.MarkdownifyConfig',
+      'django_markdownify.apps.DjangoMarkdownifyConfig',
   ]
 
 Usage
@@ -38,12 +38,12 @@ Basic usage
 
 Now you can change markdown to html as follows:
 
-``{{ 'text'|markdownify }}``
+``{{ 'text'|django_markdownify }}``
 
 Use Markdown in your template directly::
 
-  {% load markdownify %}
-  {{'Some *test* [link](#)'|markdownify }}
+  {% load django_markdownify %}
+  {{'Some *test* [link](#)'|django_markdownify }}
 
 
 Or use the filter on a variable passed to the template via your views. For example::
@@ -61,8 +61,8 @@ Or use the filter on a variable passed to the template via your views. For examp
           return context
 
   # index.html
-  {% load markdownify %}
-  {{ markdowntext|markdownify }}
+  {% load django_markdownify %}
+  {{ markdowntext|django_markdownify }}
 
 You probably want to add some extra allowed tags and attributes in the :doc:`settings`,
 because the defaults are rather sparse.
@@ -70,10 +70,10 @@ because the defaults are rather sparse.
 It is possible to have different settings for different use cases, for example::
 
     # page1.html
-    {{ markdowntext|markdownify }} <!-- uses the default settings -->
+    {{ markdowntext|django_markdownify }} <!-- uses the default settings -->
 
     # page2.html
-    {{ markdowntext|markdownify:"restricted" }} <!-- uses the 'restricted' settings -->
+    {{ markdowntext|django_markdownify:"restricted" }} <!-- uses the 'restricted' settings -->
 
 See :doc:`settings` for a more detailed explanation.
 
@@ -81,38 +81,38 @@ Usage with tags
 ^^^^^^^^^^^^^^^
 
 Alternatively you can put your text between the
-``{% markdownify %}`` and ``{% endmmarkdownify %}`` tags::
+``{% django_markdownify %}`` and ``{% endmdjango_markdownify %}`` tags::
 
-  {% load markdownify %}
+  {% load django_markdownify %}
 
-  {% markdownify %}
+  {% django_markdownify %}
   Some *test* [link](#)
-  {% endmarkdownify %}
+  {% enddjango_markdownify %}
 
 This is useful if you are using Markdownify on another templatetag for example::
 
-    {% load markdownify my_custom_template_tag %}
+    {% load django_markdownify my_custom_template_tag %}
 
-    {% markdownify %}
+    {% django_markdownify %}
     {% my_custom_template_tag %}
-    {% endmarkdownify %}
+    {% enddjango_markdownify %}
 
-You can pass in the alternative settings as a parameter to the ``markdownify`` tag::
+You can pass in the alternative settings as a parameter to the ``django_markdownify`` tag::
 
-    {% load markdownify %}
+    {% load django_markdownify %}
 
-    {% markdownify "restricted" %}
+    {% django_markdownify "restricted" %}
     Some *test* [link](#)
-    {% endmarkdownify %}
+    {% enddjango_markdownify %}
 
 Usage with filter
 ^^^^^^^^^^^^^^^^^
 
 A third way is to use the ``filter`` tag::
 
-    {% load markdownify %}
+    {% load django_markdownify %}
 
-    {% filter markdownify %}
+    {% filter django_markdownify %}
     [my link](https://{{domain}}.com)
     {% endfilter %}
 
@@ -120,7 +120,7 @@ This way, you can use dynamic content in your Markdown.
 
 You can pass in the alternative settings as follows::
 
-    {% filter markdownify:"restricted" %}
+    {% filter django_markdownify:"restricted" %}
 
 
 Settings

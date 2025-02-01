@@ -17,26 +17,26 @@ Read the full documentation on [Read the docs](http://django-markdownify.readthe
 Load the tag inside your template:
 
 ```
-{% load markdownify %}
+{% load django_markdownify %}
 ```
 
 Then you can change markdown to html as follows:
 
 ```
-{{ 'text'|markdownify }}
+{{ 'text'|django_markdownify }}
 ```
 
 or
 
 ```
-{{ somevariable|markdownify }}
+{{ somevariable|django_markdownify }}
 ```
 
 ## Example
 
 ```
-{% load markdownify %}
-{{'Some *test* [link](#)'|markdownify }}
+{% load django_markdownify %}
+{{'Some *test* [link](#)'|django_markdownify }}
 ```
 
 Is transformed to:
@@ -56,7 +56,7 @@ For example:
 ```python
 # settings.py
 
-MARKDOWNIFY = {
+DJANGO_MARKDOWNIFY = {
   "default": {
      "WHITELIST_TAGS": ["a", "p", "h1", ]
   },
@@ -73,10 +73,10 @@ And in your templates:
 ```html
 
 <!-- page1.html -->
-{{ mytext|markdownify }} <!-- Uses your default settings -->
+{{ mytext|django_markdownify }} <!-- Uses your default settings -->
 
 <!-- page2.html -->
-{{ mytext|markdownify:"alternative" }} <!-- Uses your alternative settings -->
+{{ mytext|django_markdownify:"alternative" }} <!-- Uses your alternative settings -->
 ```
 
 ## Documentation

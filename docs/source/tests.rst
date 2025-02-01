@@ -8,4 +8,4 @@ Django Markdownify is installed, and run the tests.
   .. highlight:: bash
 
   >>> cd /path/to/your/project
-  >>> python manage.py test markdownify
+  >>> python manage.py test django_markdownify
